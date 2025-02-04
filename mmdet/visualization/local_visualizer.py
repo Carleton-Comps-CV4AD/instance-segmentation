@@ -600,11 +600,15 @@ class TrackLocalVisualizer(Visualizer):
                     bboxes[:, 2] - bboxes[:, 0])
                 scales = _get_adaptive_scales(areas.cpu().numpy())
                 for i, pos in enumerate(positions):
+                    try:
+                        font_sizes_test = int(13 * scales[i])
+                    except:
+                        font_sizes_test = 13
                     self.draw_texts(
                         texts[i],
                         pos,
                         colors='black',
-                        font_sizes=int(13 * scales[i]),
+                        font_sizes=font_sizes_test,
                         bboxes=[{
                             'facecolor': [c / 255 for c in colors[i]],
                             'alpha': 0.8,

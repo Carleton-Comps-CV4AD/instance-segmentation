@@ -149,7 +149,7 @@ def convert_vis(ann_dir, save_dir, dataset_version, mode='train'):
 
 def main():
     args = parse_args()
-    for sub_set in ['train', 'valid', 'test']:
+    for sub_set in ['train', 'valid']: # going to delete test from this
         convert_vis(args.input, args.output, args.version, sub_set)
 
 

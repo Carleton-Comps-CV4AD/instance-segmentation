@@ -1,6 +1,8 @@
 _base_ = ['./masktrack-rcnn_mask-rcnn_r50_fpn_8xb1-12e_youtubevis2019.py']
 
-data_root = 'data/youtube_vis_2021/'
+# data_root = 'data/youtube_vis_2021/'
+data_root = '//Data/meierj/YoutubeVIS2021/'
+
 dataset_version = data_root[-5:-1]
 
 # dataloader
