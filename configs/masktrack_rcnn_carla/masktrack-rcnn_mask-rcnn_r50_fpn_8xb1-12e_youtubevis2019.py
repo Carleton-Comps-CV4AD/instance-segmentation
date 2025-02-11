@@ -80,7 +80,7 @@ train_dataloader = dict(
         data_root=data_root,
         dataset_version=dataset_version,
         ann_file='annotations/youtube_vis_2019_train.json',
-        data_prefix=dict(img_path='train/JPEGImages'),
+        data_prefix=dict(img_path='train/rgb'), # changed to rgb form jpegimages
         pipeline=_base_.train_pipeline))
 
 # optimizer

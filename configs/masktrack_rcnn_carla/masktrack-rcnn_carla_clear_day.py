@@ -2,7 +2,7 @@ _base_ = ['./masktrack-rcnn_mask-rcnn_r50_fpn_8xb1-12e_youtubevis2019.py']
 
 # data_root = 'data/youtube_vis_2021/'
 # data_root = '//Data/meierj/YoutubeVIS2021/'
-data_root = '/Data/video_data/clear_day' 
+data_root = '/Data/video_data/clear_day/' 
 
 dataset_version = data_root[-5:-1]
 
@@ -20,9 +20,13 @@ dataset_version = data_root[-5:-1]
 # test_dataloader = val_dataloader
 
 
-model = dict(
-    roi_head=dict(
-        bbox_head=dict(num_classes=8), mask_head=dict(num_classes=8))) # set number of classes correctly?? 
+# model = dict(
+#     roi_head=dict(
+#         bbox_head=dict(num_classes=8), mask_head=dict(num_classes=8))) # set number of classes correctly?? 
+
+# model = dict(
+#     mask_head=dict(num_classes=8)) # set number of classes correctly?? 
+
 
 # Modify dataset related settings
 metainfo = {
@@ -40,16 +44,16 @@ train_dataloader = dict(
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
-        ann_file='annotations.json',
-        data_prefix=dict(img='train/rgb/'))) 
+        ann_file='train/annotations.json',
+        data_prefix=dict(img='train/rgb'))) 
 val_dataloader = dict(
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
-        ann_file='annotations.json',
+        ann_file='val/annotations.json',
         data_prefix=dict(img='val/rgb'))) 
 test_dataloader = val_dataloader
 
-# Modify metric related settings
-val_evaluator = dict(ann_file=data_root + 'val/annotation_coco.json')
-test_evaluator = val_evaluator
+# # Modify metric related settings
+# val_evaluator = dict(ann_file=data_root + 'val/annotations.json')
+# test_evaluator = val_evaluator
