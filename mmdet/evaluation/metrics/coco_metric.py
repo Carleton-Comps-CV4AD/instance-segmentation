@@ -355,6 +355,7 @@ class CocoMetric(BaseMetric):
         """
         for data_sample in data_samples:
             result = dict()
+            print(data_sample.keys())
             pred = data_sample['pred_instances']
             result['img_id'] = data_sample['img_id']
             result['bboxes'] = pred['bboxes'].cpu().numpy()

@@ -15,7 +15,7 @@ env_cfg = dict(
     dist_cfg=dict(backend='nccl'),
     mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
 launcher = 'none'
-load_from = None
+load_from = 'work_dirs/masktrack-rcnn_carla_clear_day/epoch_12.pth'
 log_level = 'INFO'
 log_processor = dict(by_epoch=True, type='LogProcessor', window_size=50)
 metainfo = dict(
@@ -291,7 +291,7 @@ test_dataloader = dict(
     batch_size=1,
     dataset=dict(
         ann_file='val/annotations.json',
-        data_prefix=dict(img='val/rgb', img_path='valid/JPEGImages'),
+        data_prefix=dict(img='val/rgb', img_path='val/rgb'),
         data_root='/Data/video_data/clear_day/',
         dataset_version='2019',
         metainfo=dict(
@@ -326,9 +326,14 @@ test_dataloader = dict(
     sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
 test_evaluator = dict(
     format_only=True,
-    metric='youtube_vis_ap',
-    outfile_prefix='./youtube_vis_results',
-    type='YouTubeVISMetric')
+    metric=[
+        'bbox',
+        'segm',
+        'proposal',
+        'proposal_fast',
+    ],
+    outfile_prefix='./coco_metric',
+    type='CocoMetric')
 test_pipeline = [
     dict(
         transforms=[
@@ -411,7 +416,7 @@ val_dataloader = dict(
     batch_size=1,
     dataset=dict(
         ann_file='val/annotations.json',
-        data_prefix=dict(img='val/rgb', img_path='valid/JPEGImages'),
+        data_prefix=dict(img='val/rgb', img_path='val/rgb'),
         data_root='/Data/video_data/clear_day/',
         dataset_version='2019',
         metainfo=dict(
