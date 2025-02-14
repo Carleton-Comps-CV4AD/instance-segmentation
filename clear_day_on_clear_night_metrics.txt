@@ -1,0 +1,75 @@
+Evaluate annotation type *bbox*
+DONE (t=0.96s).
+Accumulating evaluation results...
+DONE (t=0.39s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.110
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.178
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.127
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.001
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.084
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.473
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.122
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.122
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.122
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.121
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.519
+02/13 19:08:24 - mmengine - INFO - bbox_mAP_copypaste: 0.110 0.178 0.127 0.001 0.084 0.473
+
+
+02/13 19:08:24 - mmengine - INFO - Evaluating segm...
+Loading and preparing results...
+DONE (t=0.05s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *segm*
+DONE (t=1.31s).
+Accumulating evaluation results...
+DONE (t=0.22s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.102
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.171
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.114
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.062
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.396
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.112
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.112
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.112
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.090
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.422
+02/13 19:08:26 - mmengine - INFO - segm_mAP_copypaste: 0.102 0.171 0.114 0.000 0.062 0.396
+
+
+02/13 19:08:26 - mmengine - INFO - Evaluating proposal...
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.04s).
+Accumulating evaluation results...
+DONE (t=0.13s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.089
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.154
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.090
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.001
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.114
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.467
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.102
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.102
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.102
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.162
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.516
+
+
+02/13 19:08:27 - mmengine - INFO - Epoch(test) [133/133]    
+coco/bbox_mAP: 0.1100  coco/bbox_mAP_50: 0.1780  coco/bbox_mAP_75: 0.1270  coco/bbox_mAP_s: 0.0010  coco/bbox_mAP_m: 0.0840  coco/bbox_mAP_l: 0.4730  
+coco/segm_mAP: 0.1020  coco/segm_mAP_50: 0.1710  coco/segm_mAP_75: 0.1140  coco/segm_mAP_s: 0.0000  coco/segm_mAP_m: 0.0620  coco/segm_mAP_l: 0.3960  
+coco/AR@100: 0.1020  coco/AR@300: 0.1020  coco/AR@1000: 0.1020  coco/AR_s@1000: 0.0000  coco/AR_m@1000: 0.1620  coco/AR_l@1000: 0.5160  
+
+
+data_time: 1.2502  time: 1.9459

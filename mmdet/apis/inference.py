@@ -56,7 +56,7 @@ def init_detector(
                         f'but got {type(config)}')
     if cfg_options is not None:
         config.merge_from_dict(cfg_options)
-    elif 'init_cfg' in config.model.backbone:
+    elif 'init_cfg' in config.model.backbone: # changed to allow masktrackrcnn carla demo
         config.model.backbone.init_cfg = None
 
     scope = config.get('default_scope', 'mmdet')

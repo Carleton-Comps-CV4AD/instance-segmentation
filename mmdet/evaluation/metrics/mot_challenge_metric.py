@@ -161,6 +161,7 @@ class MOTChallengeMetric(BaseVideoMetric):
         # load gts
         if 'instances' in img_data_sample:
             gt_instances = img_data_sample['instances']
+            print(gt_instances)
             gt_tracks = [
                 np.array([
                     frame_id + 1, gt_instances[i]['instance_id'],

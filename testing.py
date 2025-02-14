@@ -20,7 +20,7 @@ from mmdet.apis import DetInferencer
 
 
 
-inferencer = DetInferencer(weights='work_dirs/masktrack-rcnn_carla_clear_day/epoch_12.pth')
+inferencer = DetInferencer(model='work_dirs/masktrack-rcnn_carla_clear_day/masktrack-rcnn_carla_clear_day.py', weights='work_dirs/masktrack-rcnn_carla_clear_day/epoch_12.pth')
 
 
 inferencer('/Data/januaryData/1_17_clear_day/_outRaw/0.png', out_dir='outputs/', no_save_pred=False)

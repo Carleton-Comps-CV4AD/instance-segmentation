@@ -355,7 +355,9 @@ class CocoMetric(BaseMetric):
         """
         for data_sample in data_samples:
             result = dict()
-            print(data_sample.keys())
+            # print(data_sample.keys())
+            # with open('data_sample_second.txt', 'w') as file:
+            #     file.write(str(data_sample))
             pred = data_sample['pred_instances']
             result['img_id'] = data_sample['img_id']
             result['bboxes'] = pred['bboxes'].cpu().numpy()

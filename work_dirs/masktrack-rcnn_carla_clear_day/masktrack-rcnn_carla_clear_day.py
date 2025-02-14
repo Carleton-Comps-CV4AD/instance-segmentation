@@ -292,7 +292,7 @@ test_dataloader = dict(
     dataset=dict(
         ann_file='val/annotations.json',
         data_prefix=dict(img='val/rgb', img_path='val/rgb'),
-        data_root='/Data/video_data/clear_day/',
+        data_root='/Data/video_data/clear_night/',
         dataset_version='2019',
         metainfo=dict(
             classes=(
@@ -321,19 +321,20 @@ test_dataloader = dict(
         test_mode=True,
         type='YouTubeVISDataset'),
     drop_last=False,
-    num_workers=2,
+    num_workers=1,
     persistent_workers=True,
     sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
-test_evaluator = dict(
-    format_only=True,
-    metric=[
-        'bbox',
-        'segm',
-        'proposal',
-        'proposal_fast',
-    ],
-    outfile_prefix='./coco_metric',
-    type='CocoMetric')
+test_evaluator = [
+    dict(
+        format_only=False,
+        metric=[
+            'bbox',
+            'segm',
+            'proposal',
+        ],
+        outfile_prefix='./coco_metric',
+        type='CocoVideoMetric'),
+]
 test_pipeline = [
     dict(
         transforms=[
@@ -388,7 +389,7 @@ train_dataloader = dict(
             dict(type='PackTrackInputs'),
         ],
         type='YouTubeVISDataset'),
-    num_workers=2,
+    num_workers=1,
     persistent_workers=True,
     sampler=dict(type='TrackImgSampler'))
 train_pipeline = [
@@ -446,7 +447,7 @@ val_dataloader = dict(
         test_mode=True,
         type='YouTubeVISDataset'),
     drop_last=False,
-    num_workers=2,
+    num_workers=1,
     persistent_workers=True,
     sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
 val_evaluator = dict(
