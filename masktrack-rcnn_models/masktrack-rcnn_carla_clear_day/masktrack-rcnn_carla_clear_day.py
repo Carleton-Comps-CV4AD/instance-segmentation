@@ -1,4 +1,5 @@
 backend_args = None
+dataset_to_be_tested = '/Data/video_data/clear_day/'
 data_root = '/Data/video_data/clear_day/'
 dataset_type = 'YouTubeVISDataset'
 dataset_version = '_day'
@@ -292,7 +293,7 @@ test_dataloader = dict(
     dataset=dict(
         ann_file='val/annotations.json',
         data_prefix=dict(img='val/rgb', img_path='val/rgb'),
-        data_root='/Data/video_data/clear_night/',
+        data_root=dataset_to_be_tested,
         dataset_version='2019',
         metainfo=dict(
             classes=(

@@ -1,4 +1,5 @@
 backend_args = None
+dataset_to_be_tested = '/Data/video_data/clear_day/'
 data_root = '/Data/video_data/foggy_day/'
 dataset_type = 'YouTubeVISDataset'
 dataset_version = '_day'
@@ -292,7 +293,7 @@ test_dataloader = dict(
     dataset=dict(
         ann_file='val/annotations.json',
         data_prefix=dict(img='val/rgb', img_path='valid/JPEGImages'),
-        data_root='/Data/video_data/foggy_day/',
+        data_root=dataset_to_be_tested,
         dataset_version='2019',
         metainfo=dict(
             classes=(
@@ -321,14 +322,20 @@ test_dataloader = dict(
         test_mode=True,
         type='YouTubeVISDataset'),
     drop_last=False,
-    num_workers=2,
+    num_workers=1,
     persistent_workers=True,
     sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
-test_evaluator = dict(
-    format_only=True,
-    metric='youtube_vis_ap',
-    outfile_prefix='./youtube_vis_results',
-    type='YouTubeVISMetric')
+test_evaluator = [
+    dict(
+        format_only=False,
+        metric=[
+            'bbox',
+            'segm',
+            'proposal',
+        ],
+        outfile_prefix='./coco_metric',
+        type='CocoVideoMetric'),
+]
 test_pipeline = [
     dict(
         transforms=[
@@ -383,7 +390,7 @@ train_dataloader = dict(
             dict(type='PackTrackInputs'),
         ],
         type='YouTubeVISDataset'),
-    num_workers=2,
+    num_workers=1,
     persistent_workers=True,
     sampler=dict(type='TrackImgSampler'))
 train_pipeline = [
@@ -441,7 +448,7 @@ val_dataloader = dict(
         test_mode=True,
         type='YouTubeVISDataset'),
     drop_last=False,
-    num_workers=2,
+    num_workers=1,
     persistent_workers=True,
     sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
 val_evaluator = dict(
