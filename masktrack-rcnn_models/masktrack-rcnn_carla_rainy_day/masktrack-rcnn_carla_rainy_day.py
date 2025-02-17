@@ -1,5 +1,5 @@
 backend_args = None
-data_root = '/Data/video_data/clear_day/'
+data_root = '/Data/video_data/rainy_day/'
 dataset_type = 'YouTubeVISDataset'
 dataset_version = '_day'
 default_hooks = dict(
@@ -285,14 +285,14 @@ param_scheduler = [
         ],
         type='MultiStepLR'),
 ]
-resume = False
+resume = True
 test_cfg = dict(type='TestLoop')
 test_dataloader = dict(
     batch_size=1,
     dataset=dict(
         ann_file='val/annotations.json',
-        data_prefix=dict(img='val/rgb/', img_path='valid/JPEGImages'),
-        data_root='/Data/video_data/clear_day/',
+        data_prefix=dict(img='val/rgb', img_path='valid/JPEGImages'),
+        data_root='/Data/video_data/rainy_day/',
         dataset_version='2019',
         metainfo=dict(
             classes=(
@@ -325,7 +325,6 @@ test_dataloader = dict(
     persistent_workers=True,
     sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
 test_evaluator = dict(
-    ann_file='/Data/video_data/clear_day/val/annotations.json',
     format_only=True,
     metric='youtube_vis_ap',
     outfile_prefix='./youtube_vis_results',
@@ -349,8 +348,8 @@ train_dataloader = dict(
     batch_size=1,
     dataset=dict(
         ann_file='train/annotations.json',
-        data_prefix=dict(img='train/rgb/', img_path='train/JPEGImages'),
-        data_root='/Data/video_data/clear_day/',
+        data_prefix=dict(img='train/rgb', img_path='train/rgb'),
+        data_root='/Data/video_data/rainy_day/',
         dataset_version='2019',
         metainfo=dict(
             classes=(
@@ -412,8 +411,8 @@ val_dataloader = dict(
     batch_size=1,
     dataset=dict(
         ann_file='val/annotations.json',
-        data_prefix=dict(img='val/rgb/', img_path='valid/JPEGImages'),
-        data_root='/Data/video_data/clear_day/',
+        data_prefix=dict(img='val/rgb', img_path='valid/JPEGImages'),
+        data_root='/Data/video_data/rainy_day/',
         dataset_version='2019',
         metainfo=dict(
             classes=(
@@ -446,7 +445,6 @@ val_dataloader = dict(
     persistent_workers=True,
     sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
 val_evaluator = dict(
-    ann_file='/Data/video_data/clear_day/val/annotations.json',
     format_only=True,
     metric='youtube_vis_ap',
     outfile_prefix='./youtube_vis_results',
@@ -460,4 +458,4 @@ visualizer = dict(
     vis_backends=[
         dict(type='LocalVisBackend'),
     ])
-work_dir = './work_dirs/masktrack-rcnn_carla_clear_day'
+work_dir = './work_dirs/masktrack-rcnn_carla_rainy_day'
