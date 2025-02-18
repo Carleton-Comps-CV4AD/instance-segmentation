@@ -1,0 +1,14 @@
+/home/meierj/anaconda3/envs/openmmlab/lib/python3.8/site-packages/mmengine/optim/optimizer/zero_optimizer.py:11: DeprecationWarning: `TorchScript` support for functional optimizers is deprecated and will be removed in a future PyTorch release. Consider using the `torch.compile` optimizer instead.
+  from torch.distributed.optim import \
+Traceback (most recent call last):
+  File "tools/test_tracking.py", line 101, in <module>
+    main()
+  File "tools/test_tracking.py", line 56, in main
+    cfg = Config.fromfile(args.config)
+  File "/home/meierj/anaconda3/envs/openmmlab/lib/python3.8/site-packages/mmengine/config/config.py", line 461, in fromfile
+    cfg_dict, cfg_text, env_variables = Config._file2dict(
+  File "/home/meierj/anaconda3/envs/openmmlab/lib/python3.8/site-packages/mmengine/config/config.py", line 856, in _file2dict
+    check_file_exist(filename)
+  File "/home/meierj/anaconda3/envs/openmmlab/lib/python3.8/site-packages/mmengine/utils/path.py", line 23, in check_file_exist
+    raise FileNotFoundError(msg_tmpl.format(filename))
+FileNotFoundError: file "/home/meierj/mmdetection/masktrack-rcnn_models/masktrack-rcnn_carla_day/masktrack-rcnn_carla_foggy_day.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_foggy_day/epoch_12.pth" does not exist
