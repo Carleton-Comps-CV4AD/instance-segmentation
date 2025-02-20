@@ -115,9 +115,9 @@ data
 *.log.json
 docs/modelzoo_statistics.md
 mmdet/.mim
-# work_dirs/ i want to push the workdirs
+# work_dirs/ i want to push the workdirs.
 
 # Pytorch
-*.pth
+*.pth 
 *.py~
 *.sh~

@@ -336,6 +336,10 @@ test_evaluator = [
         outfile_prefix='./coco_metric',
         type='CocoVideoMetric',
         classwise=True),
+    dict(
+        type='MOTChallengeMetric',
+        outfile_prefix = 'track_result/',
+    )
 ]
 test_pipeline = [
     dict(

@@ -152,25 +152,26 @@ class MOTChallengeMetric(BaseVideoMetric):
     def _get_gt_dir(self):
         """Get directory to save the gt files."""
         output_dir = osp.join(self.tmp_dir.name, 'gt')
+        print(output_dir)
         os.makedirs(output_dir, exist_ok=True)
         return output_dir
 
     def transform_gt_and_pred(self, img_data_sample, video, frame_id):
 
-        video = img_data_sample['img_path'].split(os.sep)[-3]
+        video = img_data_sample['img_path'].split(os.sep)[-2]
         # load gts
         if 'instances' in img_data_sample:
             gt_instances = img_data_sample['instances']
-            print(gt_instances)
+            # print(gt_instances)
             gt_tracks = [
                 np.array([
                     frame_id + 1, gt_instances[i]['instance_id'],
                     gt_instances[i]['bbox'][0], gt_instances[i]['bbox'][1],
                     gt_instances[i]['bbox'][2] - gt_instances[i]['bbox'][0],
                     gt_instances[i]['bbox'][3] - gt_instances[i]['bbox'][1],
-                    gt_instances[i]['mot_conf'],
-                    gt_instances[i]['category_id'],
-                    gt_instances[i]['visibility']
+                    1, #gt_instances[i]['mot_conf'], # made mot_conf 1
+                    gt_instances[i]['bbox_label'], # gt_instances[i]['category_id'], # gemini suggested using bbox label instead?
+                    1, # gt_instances[i]['visibility'] # made visibility 1
                 ]) for i in range(len(gt_instances))
             ]
             self.seq_info[video]['gt_tracks'].extend(gt_tracks)
@@ -202,7 +203,7 @@ class MOTChallengeMetric(BaseVideoMetric):
     def process_image(self, data_samples, video_len):
 
         img_data_sample = data_samples[0].to_dict()
-        video = img_data_sample['img_path'].split(os.sep)[-3]
+        video = img_data_sample['img_path'].split(os.sep)[-2]
         frame_id = img_data_sample['frame_id']
         if self.seq_info[video]['seq_length'] == -1:
             self.seq_info[video]['seq_length'] = video_len
@@ -226,7 +227,7 @@ class MOTChallengeMetric(BaseVideoMetric):
         for frame_id in range(video_len):
             img_data_sample = data_samples[frame_id].to_dict()
             # load basic info
-            video = img_data_sample['img_path'].split(os.sep)[-3]
+            video = img_data_sample['img_path'].split(os.sep)[-2] ### changed all of these from -3 to -2
             if self.seq_info[video]['seq_length'] == -1:
                 self.seq_info[video]['seq_length'] = video_len
             self.transform_gt_and_pred(img_data_sample, video, frame_id)
