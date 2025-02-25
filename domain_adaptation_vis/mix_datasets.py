@@ -149,7 +149,7 @@ if __name__ == '__main__':
     splits = {
         # weather : percentage
         'clear_day' : 70,
-        'foggy_day' : 30
+        'rainy_day' : 30
     }
 
     mix_data(splits)
