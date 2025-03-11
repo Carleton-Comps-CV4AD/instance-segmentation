@@ -16,7 +16,7 @@ env_cfg = dict(
     dist_cfg=dict(backend='nccl'),
     mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
 launcher = 'none'
-load_from = 'masktrack-rcnn_models/masktrack-rcnn_carla_clear_day/epoch_12.pth'
+load_from = '/home/meierj/mmdetection/masktrack-rcnn_models/masktrack-rcnn_carla_clear_day/epoch_12.pth'
 log_level = 'INFO'
 log_processor = dict(by_epoch=True, type='LogProcessor', window_size=50)
 metainfo = dict(

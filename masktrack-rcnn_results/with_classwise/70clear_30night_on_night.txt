@@ -1,0 +1,706 @@
+02/27 11:31:36 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.20 (default, Oct  3 2024, 15:24:27) [GCC 11.2.0]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 752324129
+    GPU 0: NVIDIA RTX A2000 12GB
+    CUDA_HOME: /home/meierj/anaconda3/envs/openmmlab3
+    NVCC: Cuda compilation tools, release 12.4, V12.4.131
+    GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+    PyTorch: 2.4.1
+    PyTorch compiling details: PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201703
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.4.2 (Git Hash 1137e04ec0b5251ca2b4400a4fd3c667ce843d67)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 12.4
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90
+  - CuDNN 90.1
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=12.4, CUDNN_VERSION=9.1.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wsuggest-override -Wno-psabi -Wno-error=pedantic -Wno-error=old-style-cast -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=2.4.1, USE_CUDA=ON, USE_CUDNN=ON, USE_CUSPARSELT=1, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, 
+
+    TorchVision: 0.20.0
+    OpenCV: 4.11.0
+    MMEngine: 0.10.6
+
+Runtime environment:
+    cudnn_benchmark: False
+    dist_cfg: {'backend': 'nccl'}
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    seed: 752324129
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+02/27 11:31:36 - mmengine - INFO - Config:
+backend_args = None
+data_root = '/Data/video_data/clear_day_clear_night_70_30/'
+dataset_to_be_tested = '/Data/video_data/clear_night/'
+dataset_type = 'YouTubeVISDataset'
+dataset_version = '_day'
+default_hooks = dict(
+    checkpoint=dict(interval=1, type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(draw=False, type='TrackVisualizationHook'))
+default_scope = 'mmdet'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'none'
+load_from = 'masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30night/epoch_12.pth'
+log_level = 'INFO'
+log_processor = dict(by_epoch=True, type='LogProcessor', window_size=50)
+metainfo = dict(
+    classes=(
+        'pedestrian',
+        'rider',
+        'car',
+        'truck',
+        'bus',
+        'train',
+        'motorcycle',
+        'bicycle',
+    ))
+model = dict(
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        pad_mask=True,
+        pad_size_divisor=32,
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='TrackDataPreprocessor'),
+    detector=dict(
+        backbone=dict(
+            depth=50,
+            frozen_stages=1,
+            init_cfg=dict(
+                checkpoint='torchvision://resnet50', type='Pretrained'),
+            norm_cfg=dict(requires_grad=True, type='BN'),
+            norm_eval=True,
+            num_stages=4,
+            out_indices=(
+                0,
+                1,
+                2,
+                3,
+            ),
+            style='pytorch',
+            type='ResNet'),
+        init_cfg=dict(
+            checkpoint=
+            'https://download.openmmlab.com/mmdetection/v2.0/mask_rcnn/mask_rcnn_r50_fpn_1x_coco/mask_rcnn_r50_fpn_1x_coco_20200205-d4b0c5d6.pth',
+            type='Pretrained'),
+        neck=dict(
+            in_channels=[
+                256,
+                512,
+                1024,
+                2048,
+            ],
+            num_outs=5,
+            out_channels=256,
+            type='FPN'),
+        roi_head=dict(
+            bbox_head=dict(
+                bbox_coder=dict(
+                    target_means=[
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                    ],
+                    target_stds=[
+                        0.1,
+                        0.1,
+                        0.2,
+                        0.2,
+                    ],
+                    type='DeltaXYWHBBoxCoder'),
+                fc_out_channels=1024,
+                in_channels=256,
+                loss_bbox=dict(loss_weight=1.0, type='L1Loss'),
+                loss_cls=dict(
+                    loss_weight=1.0,
+                    type='CrossEntropyLoss',
+                    use_sigmoid=False),
+                num_classes=40,
+                reg_class_agnostic=False,
+                roi_feat_size=7,
+                type='Shared2FCBBoxHead'),
+            bbox_roi_extractor=dict(
+                featmap_strides=[
+                    4,
+                    8,
+                    16,
+                    32,
+                ],
+                out_channels=256,
+                roi_layer=dict(
+                    output_size=7, sampling_ratio=0, type='RoIAlign'),
+                type='SingleRoIExtractor'),
+            mask_head=dict(
+                conv_out_channels=256,
+                in_channels=256,
+                loss_mask=dict(
+                    loss_weight=1.0, type='CrossEntropyLoss', use_mask=True),
+                num_classes=40,
+                num_convs=4,
+                type='FCNMaskHead'),
+            mask_roi_extractor=dict(
+                featmap_strides=[
+                    4,
+                    8,
+                    16,
+                    32,
+                ],
+                out_channels=256,
+                roi_layer=dict(
+                    output_size=14, sampling_ratio=0, type='RoIAlign'),
+                type='SingleRoIExtractor'),
+            type='StandardRoIHead'),
+        rpn_head=dict(
+            anchor_generator=dict(
+                ratios=[
+                    0.5,
+                    1.0,
+                    2.0,
+                ],
+                scales=[
+                    8,
+                ],
+                strides=[
+                    4,
+                    8,
+                    16,
+                    32,
+                    64,
+                ],
+                type='AnchorGenerator'),
+            bbox_coder=dict(
+                target_means=[
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                ],
+                target_stds=[
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0,
+                ],
+                type='DeltaXYWHBBoxCoder'),
+            feat_channels=256,
+            in_channels=256,
+            loss_bbox=dict(loss_weight=1.0, type='L1Loss'),
+            loss_cls=dict(
+                loss_weight=1.0, type='CrossEntropyLoss', use_sigmoid=True),
+            type='RPNHead'),
+        test_cfg=dict(
+            rcnn=dict(
+                mask_thr_binary=0.5,
+                max_per_img=100,
+                nms=dict(iou_threshold=0.5, type='nms'),
+                score_thr=0.01),
+            rpn=dict(
+                max_per_img=200,
+                min_bbox_size=0,
+                nms=dict(iou_threshold=0.7, type='nms'),
+                nms_pre=200)),
+        train_cfg=dict(
+            rcnn=dict(
+                assigner=dict(
+                    ignore_iof_thr=-1,
+                    match_low_quality=True,
+                    min_pos_iou=0.5,
+                    neg_iou_thr=0.5,
+                    pos_iou_thr=0.5,
+                    type='MaxIoUAssigner'),
+                debug=False,
+                mask_size=28,
+                pos_weight=-1,
+                sampler=dict(
+                    add_gt_as_proposals=True,
+                    neg_pos_ub=-1,
+                    num=128,
+                    pos_fraction=0.25,
+                    type='RandomSampler')),
+            rpn=dict(
+                allowed_border=-1,
+                assigner=dict(
+                    ignore_iof_thr=-1,
+                    match_low_quality=True,
+                    min_pos_iou=0.3,
+                    neg_iou_thr=0.3,
+                    pos_iou_thr=0.7,
+                    type='MaxIoUAssigner'),
+                debug=False,
+                pos_weight=-1,
+                sampler=dict(
+                    add_gt_as_proposals=False,
+                    neg_pos_ub=-1,
+                    num=64,
+                    pos_fraction=0.5,
+                    type='RandomSampler')),
+            rpn_proposal=dict(
+                max_per_img=200,
+                min_bbox_size=0,
+                nms=dict(iou_threshold=0.7, type='nms'),
+                nms_pre=200)),
+        type='MaskRCNN'),
+    track_head=dict(
+        embed_head=dict(
+            fc_out_channels=1024,
+            in_channels=256,
+            num_fcs=2,
+            roi_feat_size=7,
+            type='RoIEmbedHead'),
+        roi_extractor=dict(
+            featmap_strides=[
+                4,
+                8,
+                16,
+                32,
+            ],
+            out_channels=256,
+            roi_layer=dict(output_size=7, sampling_ratio=0, type='RoIAlign'),
+            type='SingleRoIExtractor'),
+        train_cfg=dict(
+            assigner=dict(
+                ignore_iof_thr=-1,
+                match_low_quality=True,
+                min_pos_iou=0.5,
+                neg_iou_thr=0.5,
+                pos_iou_thr=0.5,
+                type='MaxIoUAssigner'),
+            debug=False,
+            pos_weight=-1,
+            sampler=dict(
+                add_gt_as_proposals=True,
+                neg_pos_ub=-1,
+                num=128,
+                pos_fraction=0.25,
+                type='RandomSampler')),
+        type='RoITrackHead'),
+    tracker=dict(
+        match_weights=dict(det_label=10.0, det_score=1.0, iou=2.0),
+        num_frames_retain=20,
+        type='MaskTrackRCNNTracker'),
+    type='MaskTrackRCNN')
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=35, norm_type=2),
+    optimizer=dict(lr=0.00125, momentum=0.9, type='SGD', weight_decay=0.0001),
+    type='OptimWrapper')
+param_scheduler = [
+    dict(
+        begin=0,
+        by_epoch=False,
+        end=500,
+        start_factor=0.3333333333333333,
+        type='LinearLR'),
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=12,
+        gamma=0.1,
+        milestones=[
+            8,
+            11,
+        ],
+        type='MultiStepLR'),
+]
+resume = False
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='val/annotations.json',
+        data_prefix=dict(img='val/rgb', img_path='val/rgb'),
+        data_root='/Data/video_data/clear_night/',
+        dataset_version='2019',
+        metainfo=dict(
+            classes=(
+                'pedestrian',
+                'rider',
+                'car',
+                'truck',
+                'bus',
+                'train',
+                'motorcycle',
+                'bicycle',
+            )),
+        pipeline=[
+            dict(
+                transforms=[
+                    dict(backend_args=None, type='LoadImageFromFile'),
+                    dict(keep_ratio=True, scale=(
+                        640,
+                        360,
+                    ), type='Resize'),
+                    dict(type='LoadTrackAnnotations', with_mask=True),
+                ],
+                type='TransformBroadcaster'),
+            dict(type='PackTrackInputs'),
+        ],
+        test_mode=True,
+        type='YouTubeVISDataset'),
+    drop_last=False,
+    num_workers=1,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+test_evaluator = [
+    dict(
+        classwise=True,
+        format_only=False,
+        metric=[
+            'bbox',
+            'segm',
+            'proposal',
+        ],
+        outfile_prefix='./coco_metric',
+        type='CocoVideoMetric'),
+]
+test_pipeline = [
+    dict(
+        transforms=[
+            dict(backend_args=None, type='LoadImageFromFile'),
+            dict(keep_ratio=True, scale=(
+                640,
+                360,
+            ), type='Resize'),
+            dict(type='LoadTrackAnnotations', with_mask=True),
+        ],
+        type='TransformBroadcaster'),
+    dict(type='PackTrackInputs'),
+]
+train_cfg = dict(max_epochs=12, type='EpochBasedTrainLoop', val_begin=13)
+train_dataloader = dict(
+    batch_sampler=dict(type='TrackAspectRatioBatchSampler'),
+    batch_size=1,
+    dataset=dict(
+        ann_file='train/annotations.json',
+        data_prefix=dict(img='train/rgb', img_path='train/rgb'),
+        data_root='/Data/video_data/clear_day_clear_night_70_30/',
+        dataset_version='2019',
+        metainfo=dict(
+            classes=(
+                'pedestrian',
+                'rider',
+                'car',
+                'truck',
+                'bus',
+                'train',
+                'motorcycle',
+                'bicycle',
+            )),
+        pipeline=[
+            dict(
+                filter_key_img=True,
+                frame_range=100,
+                num_ref_imgs=1,
+                type='UniformRefFrameSample'),
+            dict(
+                share_random_params=True,
+                transforms=[
+                    dict(backend_args=None, type='LoadImageFromFile'),
+                    dict(type='LoadTrackAnnotations', with_mask=True),
+                    dict(keep_ratio=True, scale=(
+                        640,
+                        360,
+                    ), type='Resize'),
+                    dict(prob=0.5, type='RandomFlip'),
+                ],
+                type='TransformBroadcaster'),
+            dict(type='PackTrackInputs'),
+        ],
+        type='YouTubeVISDataset'),
+    num_workers=1,
+    persistent_workers=True,
+    sampler=dict(type='TrackImgSampler'))
+train_pipeline = [
+    dict(
+        filter_key_img=True,
+        frame_range=100,
+        num_ref_imgs=1,
+        type='UniformRefFrameSample'),
+    dict(
+        share_random_params=True,
+        transforms=[
+            dict(backend_args=None, type='LoadImageFromFile'),
+            dict(type='LoadTrackAnnotations', with_mask=True),
+            dict(keep_ratio=True, scale=(
+                640,
+                360,
+            ), type='Resize'),
+            dict(prob=0.5, type='RandomFlip'),
+        ],
+        type='TransformBroadcaster'),
+    dict(type='PackTrackInputs'),
+]
+val_cfg = dict(type='ValLoop')
+val_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='val/annotations.json',
+        data_prefix=dict(img='val/rgb', img_path='val/rgb'),
+        data_root='/Data/video_data/clear_day_clear_night_70_30/',
+        dataset_version='2019',
+        metainfo=dict(
+            classes=(
+                'pedestrian',
+                'rider',
+                'car',
+                'truck',
+                'bus',
+                'train',
+                'motorcycle',
+                'bicycle',
+            )),
+        pipeline=[
+            dict(
+                transforms=[
+                    dict(backend_args=None, type='LoadImageFromFile'),
+                    dict(keep_ratio=True, scale=(
+                        640,
+                        360,
+                    ), type='Resize'),
+                    dict(type='LoadTrackAnnotations', with_mask=True),
+                ],
+                type='TransformBroadcaster'),
+            dict(type='PackTrackInputs'),
+        ],
+        test_mode=True,
+        type='YouTubeVISDataset'),
+    drop_last=False,
+    num_workers=1,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    format_only=True,
+    metric='youtube_vis_ap',
+    outfile_prefix='./youtube_vis_results',
+    type='YouTubeVISMetric')
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='TrackLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs/masktrack-rcnn_carla_70clear_30night'
+
+02/27 11:31:37 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+02/27 11:31:37 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) TrackVisualizationHook             
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) TrackVisualizationHook             
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+loading annotations into memory...
+Done (t=0.41s)
+creating index...
+index created!
+Loads checkpoint by local backend from path: masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30night/epoch_12.pth
+02/27 11:31:39 - mmengine - INFO - Load checkpoint from masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30night/epoch_12.pth
+02/27 11:33:27 - mmengine - INFO - Epoch(test) [ 50/133]    eta: 0:02:59  time: 2.1592  data_time: 1.4215  memory: 1329  
+02/27 11:35:11 - mmengine - INFO - Epoch(test) [100/133]    eta: 0:01:10  time: 2.0871  data_time: 1.3832  memory: 1232  
+02/27 11:36:23 - mmengine - INFO - Converting ground truth to coco format...
+loading annotations into memory...
+Done (t=0.29s)
+creating index...
+index created!
+02/27 11:36:24 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.15s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.00s).
+Accumulating evaluation results...
+DONE (t=0.40s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.159
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.226
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.171
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.001
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.143
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.680
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.172
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.172
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.172
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.195
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.726
+02/27 11:36:26 - mmengine - INFO - 
++------------+-------+--------+--------+-------+-------+-------+
+| category   | mAP   | mAP_50 | mAP_75 | mAP_s | mAP_m | mAP_l |
++------------+-------+--------+--------+-------+-------+-------+
+| pedestrian | 0.112 | 0.185  | 0.121  | 0.003 | 0.372 | 0.695 |
+| rider      | 0.104 | 0.161  | 0.092  | 0.001 | 0.093 | 0.715 |
+| car        | 0.165 | 0.237  | 0.177  | 0.001 | 0.119 | 0.707 |
+| truck      | 0.197 | 0.289  | 0.218  | 0.0   | 0.112 | 0.683 |
+| bus        | 0.443 | 0.553  | 0.502  | 0.0   | 0.114 | 0.819 |
+| train      | nan   | nan    | nan    | nan   | nan   | nan   |
+| motorcycle | 0.054 | 0.098  | 0.053  | 0.0   | 0.159 | 0.527 |
+| bicycle    | 0.041 | 0.062  | 0.036  | 0.0   | 0.029 | 0.615 |
++------------+-------+--------+--------+-------+-------+-------+
+02/27 11:36:26 - mmengine - INFO - bbox_mAP_copypaste: 0.159 0.226 0.171 0.001 0.143 0.680
+02/27 11:36:26 - mmengine - INFO - Evaluating segm...
+Loading and preparing results...
+DONE (t=0.05s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *segm*
+DONE (t=1.35s).
+Accumulating evaluation results...
+DONE (t=0.23s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.144
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.215
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.153
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.104
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.569
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.155
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.155
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.155
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.001
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.144
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.591
+02/27 11:36:28 - mmengine - INFO - 
++------------+-------+--------+--------+-------+-------+-------+
+| category   | mAP   | mAP_50 | mAP_75 | mAP_s | mAP_m | mAP_l |
++------------+-------+--------+--------+-------+-------+-------+
+| pedestrian | 0.079 | 0.181  | 0.054  | 0.0   | 0.25  | 0.569 |
+| rider      | 0.071 | 0.134  | 0.062  | 0.0   | 0.034 | 0.549 |
+| car        | 0.162 | 0.235  | 0.177  | 0.001 | 0.114 | 0.704 |
+| truck      | 0.196 | 0.289  | 0.214  | 0.0   | 0.119 | 0.663 |
+| bus        | 0.451 | 0.553  | 0.522  | 0.0   | 0.134 | 0.82  |
+| train      | nan   | nan    | nan    | nan   | nan   | nan   |
+| motorcycle | 0.036 | 0.085  | 0.024  | 0.0   | 0.074 | 0.448 |
+| bicycle    | 0.013 | 0.026  | 0.02   | 0.0   | 0.002 | 0.227 |
++------------+-------+--------+--------+-------+-------+-------+
+02/27 11:36:28 - mmengine - INFO - segm_mAP_copypaste: 0.144 0.215 0.153 0.000 0.104 0.569
+02/27 11:36:28 - mmengine - INFO - Evaluating proposal...
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.08s).
+Accumulating evaluation results...
+DONE (t=0.13s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.135
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=1000 ] = 0.208
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=1000 ] = 0.143
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.006
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.180
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.700
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.149
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=300 ] = 0.149
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=1000 ] = 0.149
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=1000 ] = 0.001
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=1000 ] = 0.242
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=1000 ] = 0.746
+02/27 11:36:29 - mmengine - INFO - Epoch(test) [133/133]    coco/pedestrian_precision: 0.0790  coco/rider_precision: 0.0710  coco/car_precision: 0.1620  coco/truck_precision: 0.1960  coco/bus_precision: 0.4510  coco/train_precision: nan  coco/motorcycle_precision: 0.0360  coco/bicycle_precision: 0.0130  coco/bbox_mAP: 0.1590  coco/bbox_mAP_50: 0.2260  coco/bbox_mAP_75: 0.1710  coco/bbox_mAP_s: 0.0010  coco/bbox_mAP_m: 0.1430  coco/bbox_mAP_l: 0.6800  coco/segm_mAP: 0.1440  coco/segm_mAP_50: 0.2150  coco/segm_mAP_75: 0.1530  coco/segm_mAP_s: 0.0000  coco/segm_mAP_m: 0.1040  coco/segm_mAP_l: 0.5690  coco/AR@100: 0.1490  coco/AR@300: 0.1490  coco/AR@1000: 0.1490  coco/AR_s@1000: 0.0010  coco/AR_m@1000: 0.2420  coco/AR_l@1000: 0.7460  data_time: 1.4203  time: 2.1397
