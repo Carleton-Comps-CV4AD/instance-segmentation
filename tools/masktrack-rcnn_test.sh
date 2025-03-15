@@ -45,7 +45,7 @@ model_args["rainy_day_on_foggy_day"]=$(create_args_array "rainy_day_on_foggy_day
 model_args["rainy_day_on_rainy_day"]=$(create_args_array "rainy_day_on_rainy_day" "masktrack-rcnn_models/masktrack-rcnn_carla_rainy_day/masktrack-rcnn_carla_rainy_day_on_rainy_day.py" "--checkpoint" "masktrack-rcnn_models/masktrack-rcnn_carla_rainy_day/epoch_12.pth")
 
 
-dataset_to_be_tested='rainy_day'
+# dataset_to_be_tested='rainy_day'
 
 
 # Loop through each model
@@ -66,4 +66,4 @@ for model_name in "${!model_args[@]}"; do
     fi
 done
 
-echo "All models completed (you'll need to run this script for each dataroot)."
+echo "All models completed."

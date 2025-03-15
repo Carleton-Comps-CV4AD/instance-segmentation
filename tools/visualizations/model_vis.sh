@@ -29,18 +29,21 @@ video_files=(
 )
 
 # Model configurations and checkpoints
-# model_configs=(
-#   "clear_day:masktrack-rcnn_models/masktrack-rcnn_carla_clear_day/masktrack-rcnn_carla_clear_day_on_clear_day.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_clear_day/epoch_12.pth"
-#   "clear_night:masktrack-rcnn_models/masktrack-rcnn_carla_clear_night/masktrack-rcnn_carla_clear_night_on_clear_day.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_clear_night/epoch_12.pth"
-#   "foggy_day:masktrack-rcnn_models/masktrack-rcnn_carla_foggy_day/masktrack-rcnn_carla_foggy_day_on_clear_day.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_foggy_day/epoch_12.pth"
-#   "rainy_day:masktrack-rcnn_models/masktrack-rcnn_carla_rainy_day/masktrack-rcnn_carla_rainy_day_on_clear_day.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_rainy_day/epoch_12.pth"
-# )
 
+# If creating visualizations of base models
 model_configs=(
-  "7030foggy:masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30foggy/masktrack-rcnn_carla_70clear_30foggy_on_foggy.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30foggy/epoch_12.pth"
-  "7030rainy:masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30rainy/masktrack-rcnn_carla_70clear_30rainy_on_rainy.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30rainy/epoch_12.pth"
-  "7030night:masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30night/masktrack-rcnn_carla_70clear_30night_on_night.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30night/epoch_12.pth"
+  "clear_day:masktrack-rcnn_models/masktrack-rcnn_carla_clear_day/masktrack-rcnn_carla_clear_day_on_clear_day.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_clear_day/epoch_12.pth"
+  "clear_night:masktrack-rcnn_models/masktrack-rcnn_carla_clear_night/masktrack-rcnn_carla_clear_night_on_clear_day.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_clear_night/epoch_12.pth"
+  "foggy_day:masktrack-rcnn_models/masktrack-rcnn_carla_foggy_day/masktrack-rcnn_carla_foggy_day_on_clear_day.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_foggy_day/epoch_12.pth"
+  "rainy_day:masktrack-rcnn_models/masktrack-rcnn_carla_rainy_day/masktrack-rcnn_carla_rainy_day_on_clear_day.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_rainy_day/epoch_12.pth"
 )
+
+# If creating visualizations of domain adaptation models
+# model_configs=(
+#   "7030foggy:masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30foggy/masktrack-rcnn_carla_70clear_30foggy_on_foggy.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30foggy/epoch_12.pth"
+#   "7030rainy:masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30rainy/masktrack-rcnn_carla_70clear_30rainy_on_rainy.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30rainy/epoch_12.pth"
+#   "7030night:masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30night/masktrack-rcnn_carla_70clear_30night_on_night.py --checkpoint masktrack-rcnn_models/masktrack-rcnn_carla_70clear_30night/epoch_12.pth"
+# )
 
 # Run the commands
 for video_file in "${video_files[@]}"; do
