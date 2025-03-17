@@ -12,6 +12,7 @@ import shutil
 import random
 import math
 from itertools import groupby
+import argparse
 # from data_collection.carla_flags import random_seeds
 
 def create_sub_masks(mask_image, width, height):

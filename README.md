@@ -1,4 +1,17 @@
 # Instance Segmentation on CARLA Data for 2025 Carleton College Comps Project
+# Adapted from MMDetection
+
+
+### Contributers
+
+| Name           | Email                 |
+| -------------- | --------------------- |
+| Ben Zhao       | benzhao90@gmail.com   |
+| Nathaniel Li   | lin@carleton.edu      |
+| Julian Tanguma | tangumaj@carleton.edu |
+| David Toledo   | toledod@carleton.edu  |
+| Ethan Masadde(Indirectly)  | masaddee@carleton.edu |
+| Josh Meier(Indirectly)    | meierj@carleton.edu   |
 
 Forked from the [MMDetection](https://github.com/open-mmlab/mmdetection) repository, which is an open source object detection toolbox that provides access to many different models. 
 
@@ -48,7 +61,20 @@ pip install seaborn
 
 To train the model, first you must have the correct video data. Go to our [CARLA data repo](https://github.com/Carleton-Comps-CV4AD/cv4ad_CARLA_code/tree/main) to produce that or email ___@gmail.com. 
 
-Once you have the data, you must create the proper annotations for it...
+Once you have the data, you must create the proper annotations for it. First, you need your data to be organized by weather and frouped by videos. If you ran our custom datset generating script, you will need to do to the <code>data_generation/generate_vis_annotations.py</code> file and edit the main portion of the code to specify the path to your data and the exact seeds you used to generate your data. You will then have to add the following lines of code:
+
+```bash
+if __name__ == '__main__':
+    path = '/Data/video_data' # substitute with your data path
+
+    unwrap_images(path, random_seeds)
+    #make sure data is organized into folders
+    enforce_video_organization(path)
+    split_train_val(path_test)
+    generate_vis_annotations(path) # this will generate annotations for your data
+```
+
+To generate annotations for your dataset you will need to run <code>python data_generation/generate_vis_annotations.py</code>
 
 
 Once your annotations are complete, go into the config of the model 
